@@ -21,6 +21,7 @@
   <body>
     <div id="app"></div>
     <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/crypto-js/crypto-js.min.js"></script>
     <script>
       window.$docsify = {
         name: "yuzhian's blog",
@@ -40,12 +41,9 @@
         themeColor: '#009688',
         formatUpdated: '{YYYY}-{MM}-{DD}',
         plugins: [
-          (hook, vm) =>
-            hook.beforeEach(
-              html =>
-                html +
-                `\n 最后更新于 {docsify-updated} [:green_book: 查看源文件](https://github.com/yuzhian/yuzhian.github.io/blob/master/${vm.route.file})`
-            ),
+          (hook, vm) => hook.beforeEach(html => 
+            html + `\n 最后更新于 {docsify-updated} [:green_book: 查看源文件](https://github.com/yuzhian/yuzhian.github.io/blob/master/${vm.route.file})`
+          ),
         ],
         search: {
           paths: 'auto',
@@ -71,7 +69,7 @@
         repo: 'yuzhian.github.io',
         owner: 'yuzhian',
         admin: ['yuzhian'],
-        createIssueManually: true,
+        id: CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(location.hash.match(/#\/([^?]*)/g)[0])),
         distractionFreeMode: false,
       })
     </script>
