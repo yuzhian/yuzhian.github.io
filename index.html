@@ -21,7 +21,6 @@
   <body>
     <div id="app"></div>
     <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/crypto-js/crypto-js.min.js"></script>
     <script>
       window.$docsify = {
         name: "yuzhian's blog",
@@ -69,7 +68,7 @@
         repo: 'yuzhian.github.io',
         owner: 'yuzhian',
         admin: ['yuzhian'],
-        id: CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(location.hash.match(/#\/([^?]*)/g)[0])),
+        id: location.hash.match(/#(\/[^?]*)/)[1],
         distractionFreeMode: false,
       })
     </script>
