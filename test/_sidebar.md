@@ -1,3 +1,3 @@
-- [markdown 语法](test/markdown)
-- [代码高亮](test/code)
-- [表情符号](test/emoji)
+- [markdown 语法](markdown)
+- [代码高亮](code)
+- [表情符号](emoji)
