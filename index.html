@@ -22,6 +22,9 @@
     <div id="app"></div>
     <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
     <script>
+      function hashId() {
+        return location.hash.match(/#(\/[^?]*)/)[1]
+      }
       window.$docsify = {
         name: "yuzhian's blog",
         nameLink: '/',
@@ -68,7 +71,7 @@
         repo: 'yuzhian.github.io',
         owner: 'yuzhian',
         admin: ['yuzhian'],
-        id: location.hash.match(/#(\/[^?]*)/)[1],
+        id: hashId(),
         distractionFreeMode: false,
       })
     </script>
