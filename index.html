@@ -20,12 +20,8 @@
   </head>
   <body>
     <div id="app"></div>
-    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
     <script>
-      function hashId() {
-        return location.hash.match(/#(\/[^?]*)/)[1]
-      }
       window.$docsify = {
         name: "yuzhian's blog",
         nameLink: '/',
@@ -44,9 +40,12 @@
         themeColor: '#009688',
         formatUpdated: '{YYYY}-{MM}-{DD}',
         plugins: [
-          (hook, vm) => hook.beforeEach(html => 
-            html + `\n 最后更新于 {docsify-updated} [:green_book: 查看源文件](https://github.com/yuzhian/yuzhian.github.io/blob/master/${vm.route.file})`
-          ),
+          (hook, vm) =>
+            hook.beforeEach(
+              html =>
+                html +
+                `\n 最后更新于 {docsify-updated} [:green_book: 查看源文件](https://github.com/yuzhian/yuzhian.github.io/blob/master/${vm.route.file})`
+            ),
         ],
         search: {
           paths: 'auto',
@@ -72,9 +71,16 @@
         repo: 'yuzhian.github.io',
         owner: 'yuzhian',
         admin: ['yuzhian'],
-        id: hashId(),
+        id: location.hash.match(/#(\/[^?]*)/)[1],
         distractionFreeMode: false,
       })
+      window.onload = function () {
+        let content = document.querySelector('.content')
+        let dom = document.createElement('div')
+        dom.id = 'gitalk-container'
+        content.appendChild(dom)
+        gitalk.render('gitalk-container');
+      }
     </script>
     <!-- Docsify v4 -->
     <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
