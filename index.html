@@ -22,6 +22,15 @@
     <div id="app"></div>
     <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
     <script>
+      const gitalkConfig = {
+        clientID: '19828edbefbca269af40',
+        clientSecret: '36370f805686467fb451d99f64809883e6393ebe',
+        repo: 'yuzhian.github.io',
+        owner: 'yuzhian',
+        admin: ['yuzhian'],
+        distractionFreeMode: true,
+      }
+
       window.$docsify = {
         name: "yuzhian's blog",
         nameLink: '/',
@@ -46,6 +55,24 @@
                 html +
                 `\n 最后更新于 {docsify-updated} [:green_book: 查看源文件](https://github.com/yuzhian/yuzhian.github.io/blob/master/${vm.route.file})`
             ),
+          (hook, vm) =>
+            hook.beforeEach(() => {
+              // 查询评论列表
+              const label =
+                vm.route.path.substr(1).replaceAll('/', ':') || 'home'
+              const gitalk = new Gitalk({ ...gitalkConfig, id: label })
+              // gitalk插件在写入元素前没有进行清空操作, 因此手动清空已存在容器
+              const dom = Docsify.dom
+              dom.findAll('div#gitalk-container').forEach(el => el.remove())
+              // 创建容器
+              const main = dom.getNode('#main')
+              const container = dom.create('div')
+              container.id = `gitalk-container`
+              container.style = `width: ${main.clientWidth}px; margin: auto`
+              dom.appendTo(dom.find('.content'), container)
+              // 渲染评论区
+              gitalk.render(container.id)
+            }),
         ],
         search: {
           paths: 'auto',
@@ -64,22 +91,6 @@
           color: 'rgb(90,90,90)',
           language: 'chinese',
         },
-      }
-      const gitalk = new Gitalk({
-        clientID: '19828edbefbca269af40',
-        clientSecret: '36370f805686467fb451d99f64809883e6393ebe',
-        repo: 'yuzhian.github.io',
-        owner: 'yuzhian',
-        admin: ['yuzhian'],
-        id: location.hash.match(/#(\/[^?]*)/)[1],
-        distractionFreeMode: false,
-      })
-      window.onload = function () {
-        let content = document.querySelector('.content')
-        let dom = document.createElement('div')
-        dom.id = 'gitalk-container'
-        content.appendChild(dom)
-        gitalk.render('gitalk-container');
       }
     </script>
     <!-- Docsify v4 -->
