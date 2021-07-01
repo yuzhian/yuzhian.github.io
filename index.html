@@ -56,10 +56,11 @@
                 `\n 最后更新于 {docsify-updated} [:green_book: 查看源文件](https://github.com/yuzhian/yuzhian.github.io/blob/master/${vm.route.file})`
             ),
           (hook, vm) =>
-            hook.beforeEach(() => {
-              // 查询评论列表
-              const label =
-                vm.route.path.substr(1).replaceAll('/', ':') || 'home'
+            hook.beforeEach((content, next) => {
+              // 先渲染页面, 以保证接下来的操作都是对当前页面进行的
+              next(content)
+              // 查询|创建评论列表(issues)
+              const label = vm.route.path.split('/').filter(l => l).join(':') || 'home'
               const gitalk = new Gitalk({ ...gitalkConfig, id: label })
               // gitalk插件在写入元素前没有进行清空操作, 因此手动清空已存在容器
               const dom = Docsify.dom
