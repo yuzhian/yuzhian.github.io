@@ -21,6 +21,7 @@
   <body>
     <div id="app"></div>
     <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
     <script>
       const gitalkConfig = {
         clientID: '19828edbefbca269af40',
@@ -33,32 +34,37 @@
 
       window.$docsify = {
         name: "yuzhian's blog",
-        nameLink: '/',
-        logo: '',
         repo: 'yuzhian',
         ga: 'G-MY2E2CR4ZD',
         relativePath: true,
         loadSidebar: true,
-        autoHeader: true,
         loadNavbar: true,
         mergeNavbar: true,
+        autoHeader: true,
         coverpage: false,
         auto2top: true,
         subMaxLevel: 6,
-        topMargin: 200,
         themeColor: '#009688',
-        formatUpdated: '{YYYY}-{MM}-{DD}',
+        search: {
+          paths: 'auto',
+          placeholder: '输入以查找文章',
+          noData: '没有结果',
+          depth: 6,
+        },
+        copyCode: {
+          buttonText: '复制到剪切板',
+          errorText: '复制出错!',
+          successText: '复制成功！撰文不易，转载请保留原文链接，谢谢合作！',
+        },
+        count: {
+          countable: true,
+          fontsize: '0.9em',
+          color: 'rgb(90,90,90)',
+          language: 'chinese',
+        },
         plugins: [
           (hook, vm) =>
-            hook.beforeEach(
-              html =>
-                html +
-                `\n 最后更新于 {docsify-updated} [:green_book: 查看源文件](https://github.com/yuzhian/yuzhian.github.io/blob/master/${vm.route.file})`
-            ),
-          (hook, vm) =>
-            hook.beforeEach((content, next) => {
-              // 先渲染页面, 以保证接下来的操作都是对当前页面进行的
-              next(content)
+            hook.doneEach(() => {
               // 查询|创建评论列表(issues)
               const label = vm.route.path.split('/').filter(l => l).join(':') || 'home'
               const gitalk = new Gitalk({ ...gitalkConfig, id: label })
@@ -75,23 +81,6 @@
               gitalk.render(container.id)
             }),
         ],
-        search: {
-          paths: 'auto',
-          placeholder: '输入以查找文章',
-          noData: '没有结果',
-          depth: 6,
-        },
-        copyCode: {
-          buttonText: '点击复制',
-          errorText: '复制出错',
-          successText: '已复制',
-        },
-        count: {
-          countable: true,
-          fontsize: '0.9em',
-          color: 'rgb(90,90,90)',
-          language: 'chinese',
-        },
       }
     </script>
     <!-- Docsify v4 -->
