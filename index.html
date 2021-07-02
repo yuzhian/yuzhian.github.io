@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN">
   <head>
     <meta charset="UTF-8" />
     <title>yuzhian's blog</title>
@@ -29,7 +29,6 @@
         repo: 'yuzhian.github.io',
         owner: 'yuzhian',
         admin: ['yuzhian'],
-        distractionFreeMode: true,
       }
 
       window.$docsify = {
@@ -75,7 +74,7 @@
               const main = dom.getNode('#main')
               const container = dom.create('div')
               container.id = `gitalk-container`
-              container.style = `width: ${main.clientWidth}px; margin: auto`
+              container.className = 'markdown-section'
               dom.appendTo(dom.find('.content'), container)
               // 渲染评论区
               gitalk.render(container.id)
