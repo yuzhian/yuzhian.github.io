@@ -1,5 +1,3 @@
-# 表情符号测试
-
 People
 
 | :bowtie: `:bowtie:` | :smile: `:smile:` | :laughing: `:laughing:` |
