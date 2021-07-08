@@ -1,5 +1,6 @@
-- [Markdown 备忘单](/test/markdown/)
+- [Markdown](/test/markdown/)
   - [标准语法](/test/markdown/basic-syntax)
   - [扩展语法](/test/markdown/extended-syntax)
+  - [备忘单](/test/markdown/cheat-sheet)
 - [代码高亮](highlight)
 - [表情符号](emoji)
